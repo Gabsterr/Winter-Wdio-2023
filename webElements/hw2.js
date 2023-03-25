@@ -37,6 +37,8 @@ describe('Homework-2', () => {
 // TC-1: Verify the current date is select by default in Sign Up dropdown
 /**
  * 1. Launch facebook.com
+ * 
+ * 
  * 2. Click on Create New Account button
  * 3. Verify current date is displayed in the birthdate dropdowns.
  */
@@ -49,20 +51,22 @@ describe('Homework-2', () => {
  */
     it('Verify the current date is select by default in Sign Up dropdown', async () => {
         // 1. Launch facebook.com
+        await browser.url('https://www.facebook.com/');
 
 
 
         // 2. Click on Create New Account button
-
-
+        const newAcctButton = await $('/=Create new account');
+        await newAcctButton.click();
+        await browser.pause(2000);
 
         // 3. Verify current date is displayed in the birthdate dropdowns.
         const selectedMonthElement = await $('//select[@id="month"]//option[@selected]');
 
-        const selectedMonth = selectedMonthElement.getAttribute('');
-        const currentMonthAbbr = moment().format('MMM');
+        const selectedMonth = await selectedMonthElement.getAttribute('');
+        const currentMonthAbbr = await selectedMonth.moment().format('MMM');
 
-        expect(selectedMonth, '').to.equal(currentMonthAbbr);
+        expect(selectedMonth, 'Current date is not displayed.').to.equal(currentMonthAbbr);
 
 
 
